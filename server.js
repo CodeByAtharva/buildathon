@@ -42,16 +42,32 @@ app.get('/home.html', (req, res) => {
 
 // User Registration
 app.post("/register", (req, res) => {
-  const { user_id, email, password } = req.body;
-  db.query(
-    "INSERT INTO users (user_id, email, password) VALUES (?, ?, ?)",
-    [user_id, email, password],
-    (err, result) => {
-      if (err) res.status(500).json({ error: err });
-      else res.json({ message: "User registered successfully!" });
-    }
-  );
-});
+    const { user_id, email, password } = req.body;
+  
+    // Check if user already exists
+    db.query("SELECT * FROM users WHERE email = ?", [email], (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: "Database error, try again." });
+      }
+  
+      if (result.length > 0) {
+        return res.status(400).json({ error: "User already exists!" });
+      }
+  
+      // Insert new user
+      db.query(
+        "INSERT INTO users (user_id, email, password) VALUES (?, ?, ?)",
+        [user_id, email, password],
+        (err, result) => {
+          if (err) {
+            return res.status(500).json({ error: "Failed to register user." });
+          }
+          res.json({ message: "Registration successful!" });
+        }
+      );
+    });
+  });
+  
 
 // User Login
 app.post("/login", (req, res) => {
@@ -68,7 +84,7 @@ app.post("/login", (req, res) => {
 });
 
 // Store Ticket Booking Details
-app.post("/book-ticket", (req, res) => {
+/*app.post("/book-ticket", (req, res) => {
   const { user_id, payment_method } = req.body;
   db.query(
     "INSERT INTO tickets (user_id, payment_method) VALUES (?, ?)",
@@ -78,7 +94,44 @@ app.post("/book-ticket", (req, res) => {
       else res.json({ message: "Ticket booked successfully!" });
     }
   );
+});*/
+
+
+
+
+app.post("/book-ticket", (req, res) => {
+    const { user_id, payment_method } = req.body;
+
+    // Check if user_id exists in the users table
+    db.query("SELECT user_id FROM users WHERE user_id = ?", [user_id], (err, results) => {
+        if (err) {
+            console.error("Database Error:", err);
+            return res.redirect("/error.html");
+        }
+
+        if (results.length === 0) {
+            // User ID does not exist, redirect to error page
+            console.error("Error: User ID does not exist");
+            return res.redirect("/error.html");
+        }
+
+        // If user_id exists, insert into tickets table
+        db.query(
+            "INSERT INTO tickets (user_id, payment_method) VALUES (?, ?)",
+            [user_id, payment_method],
+            (err, result) => {
+                if (err) {
+                    console.error("Ticket Booking Error:", err);
+                    return res.redirect("/error.html");
+                }else{
+                    return res.redirect("/home.html");
+                }
+            }
+        );
+    });
 });
+
+  
 
 // Upload & Process Face Scan
 const storage = multer.memoryStorage();
