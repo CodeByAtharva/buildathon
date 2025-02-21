@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Mine!</title>
+    <link rel="stylesheet" href="./stylesheets/signup.css" />
+    <link rel="shortcut icon" href="/images/icon.png" type="image/x-icon">
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">
+        <nav>
+          <img src="/images/icon.png" alt="logo">
+        </nav>
+        <div class="text">
+          <h1>
+            Welcome Friend!
+          </h1>
+          <p>
+            to keep connected with us please Create an Account
+          </p>
+          <div class="toggle">
+            <a href="/login">Login Here</a>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <h1>Create Account</h1>
+        <form action="/register" method="post">
+
+            <div class="in-box">
+              <input type="text" name="username" id="username" placeholder="Username" />
+            </div>
+          <div class="in-box">
+            <input type="email" name="email" id="email" placeholder="Email" />
+          </div>
+
+          <div class="in-box">
+            <input type="password" name="password" id="password"placeholder="Password"
+            />
+          </div>
+          
+          <div class="login">
+            <input type="submit" name="submit" value="Register">
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
