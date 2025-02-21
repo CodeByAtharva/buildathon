@@ -32,15 +32,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Root route
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
+
+app.get('/home.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'home.html'));
+  });
+  
 
 // User Registration
 app.post("/register", (req, res) => {
-  const { username, email, password } = req.body;
+  const { user_id, email, password } = req.body;
   db.query(
-    "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-    [username, email, password],
+    "INSERT INTO users (user_id, email, password) VALUES (?, ?, ?)",
+    [user_id, email, password],
     (err, result) => {
       if (err) res.status(500).json({ error: err });
       else res.json({ message: "User registered successfully!" });

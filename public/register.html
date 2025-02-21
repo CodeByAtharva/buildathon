@@ -28,10 +28,10 @@
       </div>
       <div class="right">
         <h1>Create Account</h1>
-        <form action="/index.html" method="post">
+        <form id="register-form">
 
             <div class="in-box">
-              <input type="text" name="username" id="username" placeholder="Username" />
+              <input type="text" name="user_id" id="user_id" placeholder="user_id" />
             </div>
           <div class="in-box">
             <input type="email" name="email" id="email" placeholder="Email" />
@@ -50,3 +50,29 @@
     </div>
   </body>
 </html>
+
+<script>
+  document.getElementById("register-form").addEventListener("submit", async (event) => {
+    event.preventDefault(); // Prevent default form submission
+
+    const user_id = document.getElementById("user_id").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const response = await fetch("/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_id, email, password })
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      alert("Registration successful! Redirecting to home...");
+      window.location.href = "/home.html"; // Redirect after registration
+    } else {
+      //alert("Error: " + data.error);
+      alert("Error: " + JSON.stringify(data.error));
+
+    }
+  });
+</script>
