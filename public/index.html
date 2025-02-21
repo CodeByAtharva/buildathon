@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Booking with Face Scan & Payment</title>
+    <link rel="stylesheet" href="./stylesheets/index.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Book Your Ticket</h2>
+        <form id="booking-form">
+            <input type="text" placeholder="Full Name" required><br>
+            <input type="email" placeholder="Email" required><br>
+            <select required>
+                <option value="">Select Payment Method</option>
+                <option value="online">Online Payment</option>
+                <option value="cash">Cash</option>
+            </select><br>
+            <button type="submit">Pay & Book Ticket</button>
+        </form>
+        <h3>Face Scan</h3>
+        <video id="video" autoplay></video>
+        <button onclick="capturePhoto()">Scan Face</button>
+        <canvas id="canvas" style="display: none;"></canvas>
+    </div>
+
+    
+</body>
+</html>
+
+<script src="./javascripts/index.js"></script>
+
+
+
+
+
+
+
+
+
+
