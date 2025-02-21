@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,7 +13,7 @@
     <div class="container">
         <div class="right">
             <h1>Sign in to FaceGo!</h1>
-            <form action="/login" method="post">
+            <form action="/index.html" method="get" id="loginForm">
               <div class="in-box">
                 <input type="username" name="username" id="username" placeholder="Username" />
               </div>
@@ -47,3 +48,10 @@
     </div>
   </body>
 </html>
+
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent actual form submission
+    window.location.href = "/index.html"; // Redirect to index.html
+  });
+</script>

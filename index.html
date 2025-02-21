@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Booking with Face Scan & Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: skyblue;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+        video {
+            width: 100%;
+            border-radius: 10px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        select, input {
+            width: 90%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Book Your Ticket</h2>
+        <form id="booking-form">
+            <input type="text" placeholder="Full Name" required><br>
+            <input type="email" placeholder="Email" required><br>
+            <select required>
+                <option value="">Select Payment Method</option>
+                <option value="online">Online Payment</option>
+                <option value="cash">Cash</option>
+            </select><br>
+            <button type="submit">Pay & Book Ticket</button>
+        </form>
+        <h3>Face Scan</h3>
+        <video id="video" autoplay></video>
+        <button onclick="capturePhoto()">Scan Face</button>
+        <canvas id="canvas" style="display: none;"></canvas>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error("Error accessing camera: ", err);
+            });
+
+        function capturePhoto() {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            alert("Face scanned successfully! (This is a placeholder, implement face recognition logic here)");
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Ticketing - Capture Image</title>
+  <!-- Link to the external CSS file 
+  <link rel="stylesheet" href="./stylesheets/index.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Smart Ticketing - Capture Image</h1>
+    <p>Please capture your image to proceed with smart ticketing.</p>
+
+    <!-- Video element to show camera feed 
+    <video id="video" autoplay></video>
+
+    <!-- Canvas element to hold the captured image 
+    <canvas id="canvas"></canvas>
+
+    <br><br>
+
+    <!-- Capture button 
+    <button id="captureButton">Capture Image</button>
+
+    <br><br>
+
+    <!-- Submit button (hidden initially) 
+    <button id="submitButton" style="display: none;">Submit Image</button>
+  </div>
+
+  <!-- Link to the external JavaScript file 
+  <script src="./javascripts/index.js"></script>
+</body>
+</html>
+
+-->
